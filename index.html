@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
+<title>Laura Victoria Sánchez Herrera · Tarjeta de presentación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<link rel="preload" as="image" href="perfil.jpeg" type="image/jpeg">
+<style>
+:root{--cream:#fffdee;--orange:#ff6a13;--pink:#f6a7e0;--yellow:#fbe58a;--brown:#a5472b;--ink:#5a2412;
+--serif:"Fraunces","Iowan Old Style",Georgia,serif;--sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{height:100%;overflow:hidden}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;height:100%;overflow:hidden;display:grid;place-items:center;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+background:radial-gradient(50% 45% at 50% 50%,#fffdee,transparent 75%),radial-gradient(40% 40% at 90% 95%,rgba(246,167,224,.7),transparent 70%),radial-gradient(40% 40% at 5% 5%,rgba(251,229,138,.8),transparent 70%),linear-gradient(170deg,#ffeccf,#ffd5b3)}
+/* grano estático: sin mix-blend-mode (era muy costoso) */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.1;z-index:20;
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.scaler{width:600px;height:400px;position:relative;transform:scale(var(--k,1))}
+.stage{position:absolute;inset:0;perspective:1200px}
+
+/* Mariposa (sin filtros SVG/CSS: se re-rasterizaban en cada frame) */
+.bfly{position:absolute;inset:0;z-index:1;display:grid;place-items:center;padding-bottom:74px;pointer-events:none}
+.par{position:relative;display:grid;will-change:transform}.par>*{grid-area:1/1}
+.hop{display:grid;place-items:center;opacity:0;will-change:transform}
+.bf{width:500px;overflow:visible;animation:bob 3.8s ease-in-out infinite alternate;transition:opacity .8s}
+.bf.behind{opacity:.82}
+@keyframes bob{to{transform:translateY(-5px) rotate(1.4deg)}}
+.fl{transform-origin:150px 100px}
+@keyframes flapfast{to{transform:scaleX(.14)}}
+@keyframes breathe{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.82)}}
+@keyframes landflap{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.2)}}
+.bf.flying .fl{animation:flapfast .13s infinite alternate ease-in-out}
+.bf.landing .fl{animation:landflap .45s 2 ease-in-out}
+.bf.settled .fl{animation:breathe 3.6s infinite ease-in-out}
+.tw{transform-box:fill-box;transform-origin:center;animation:tw 2.6s var(--d) infinite ease-in-out}
+@keyframes tw{0%,100%{transform:scale(.6) rotate(0);opacity:.6}50%{transform:scale(1.15) rotate(20deg);opacity:1}}
+.dust{position:absolute;border-radius:50%;background:radial-gradient(circle,#ff9a4a,transparent 70%);opacity:0;animation:dust var(--t) var(--d) ease-in-out infinite}
+@keyframes dust{0%{opacity:0;transform:translate(0,10px)}30%,70%{opacity:.8}100%{opacity:0;transform:translate(var(--x),-60px)}}
+.trail{position:absolute;border-radius:50%;pointer-events:none;z-index:6}
+
+/* Tarjeta */
+.tilt{position:absolute;inset:0;z-index:2;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;will-change:transform}
+.flipper{position:absolute;inset:0;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transition:transform 1.1s cubic-bezier(.55,.05,.25,1.12);animation:intro 1.6s 2.9s cubic-bezier(.2,.8,.2,1) both}
+.flipper.on{transform:rotateY(180deg)}
+.flipper.go{animation:lift 1.1s cubic-bezier(.45,.05,.2,1)}
+@keyframes intro{from{scale:.92}to{scale:1}}
+@keyframes lift{0%,100%{scale:1}50%{scale:1.05}}
+.halo{position:absolute;inset:6px;border-radius:22px;opacity:0;animation:fade .2s 3.4s forwards;box-shadow:0 0 70px rgba(246,167,224,.7),0 30px 60px -26px rgba(165,71,43,.55)}
+@keyframes fade{to{opacity:1}}
+.card{position:absolute;inset:0;border-radius:22px;overflow:hidden;cursor:pointer;clip-path:inset(0 50% 0 50% round 22px);animation:open 1.5s 2.9s cubic-bezier(.3,.9,.2,1) forwards;
+-webkit-backface-visibility:hidden;backface-visibility:hidden;background:linear-gradient(135deg,rgba(255,253,238,.5),rgba(255,253,238,.22))}
+@keyframes open{to{clip-path:inset(0 0 0 0 round 22px)}}
+.card::after{content:"";position:absolute;inset:0;border-radius:22px;border:1px solid rgba(255,106,19,.35);pointer-events:none;z-index:4;box-shadow:inset 0 1px 0 #fff,inset 0 -26px 44px -34px #ff9a4a}
+#scenes{position:absolute;inset:0}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.sc.on{opacity:.42}
+.content{position:absolute;inset:0;z-index:2;padding:24px 30px;display:grid;place-items:center;text-align:center}
+.r1{opacity:0;animation:reveal .9s var(--d) cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes reveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.front-inner{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:100%}
+.name{font-family:var(--serif);font-size:42px;line-height:1.05;margin:0;color:#3f1a0e;font-weight:380;letter-spacing:-.03em}
+.name em{font-style:italic;font-weight:330;color:#e0501b}
+.role{display:inline-flex;align-items:center;gap:10px;margin:0;font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brown)}
+.role::before,.role::after{content:"";width:26px;height:1px;background:currentColor;opacity:.7;transform:scaleX(0);animation:grow .9s 4.4s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes grow{to{transform:scaleX(1)}}
+.ch{display:inline-block;opacity:0;animation:chup .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(4s + var(--i)*.05s)}
+.sp1{display:inline-block;width:.26em}
+@keyframes chup{from{opacity:0;transform:translateY(55%) rotate(5deg)}to{opacity:1;transform:none}}
+.glare{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.5),transparent 45%);opacity:0;transition:opacity .3s}
+.glare.on{opacity:1}
+.sheen{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.45) 50%,transparent 60%);transform:translateX(-110%);animation:sheen 7s 6s ease-in-out infinite}
+@keyframes sheen{0%{transform:translateX(-110%)}22%,100%{transform:translateX(110%)}}
+.hint{font:500 8px var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.55}
+.hint.front{position:absolute;bottom:18px;left:0;right:0;text-align:center;z-index:5}
+
+/* Cara trasera */
+.back{position:absolute;inset:0;border-radius:22px;overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform:rotateY(180deg);cursor:pointer;
+padding:20px 24px;display:grid;grid-template-columns:124px 1fr;grid-template-rows:auto 1fr;gap:14px 20px;
+background:radial-gradient(45% 55% at 92% 6%,rgba(251,229,138,.95),transparent),radial-gradient(50% 60% at 4% 100%,rgba(236,111,166,.5),transparent),linear-gradient(135deg,#fff3d2,#f9b5df 62%,#ffb070);
+border:1px solid rgba(255,106,19,.4);box-shadow:inset 0 1px 0 #fff,inset 0 -26px 44px -34px #ff6a13}
+.bh{position:absolute;top:14px;right:24px;color:var(--brown);z-index:5}
+.arch{grid-column:1;grid-row:1;position:relative;width:124px;height:150px}
+.arch .ring{position:absolute;inset:0;transform:translate(8px,8px);border:1.5px solid var(--orange);border-radius:62px 62px 14px 14px;pointer-events:none}
+.arch .ph{position:absolute;inset:0;border-radius:62px 62px 14px 14px;overflow:hidden;border:3px solid #fffdee;box-shadow:0 16px 28px -10px rgba(165,71,43,.65);background:linear-gradient(135deg,#fbe58a,#f6a7e0)}
+.arch .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.arch .sp{position:absolute;right:-13px;top:28px;width:24px;height:24px;fill:var(--orange);pointer-events:none}
+.bk{grid-column:2;grid-row:1;min-width:0;align-self:start;padding-top:2px}
+.bk-name{font-family:var(--serif);font-weight:400;font-size:23px;line-height:1.08;letter-spacing:-.025em;margin:0;color:#3f1a0e}
+.bk-name em{font-style:italic;font-weight:330;color:#e0501b}
+.bk-sub{display:flex;align-items:center;gap:8px;font-size:8.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;margin:8px 0 11px;color:var(--brown)}
+.bk-sub::before{content:"";width:18px;height:1px;background:currentColor;flex:none}
+.data{list-style:none;margin:0;padding:0;font-size:11.5px;font-weight:500;line-height:1.2;font-variant-numeric:lining-nums tabular-nums;color:var(--ink)}
+.data li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0;border-top:1px solid rgba(165,71,43,.24)}
+.data li:first-child{border-top:0;padding-top:0}
+.data li:last-child{padding-bottom:0}
+.data .lbl{flex:none;font-size:7px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brown);opacity:.85}
+.data a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.data .ico{width:24px;height:24px;flex:none;border-radius:50%;display:grid;place-items:center;box-shadow:0 5px 10px -4px rgba(165,71,43,.6)}
+.data .ico svg{width:13px;height:13px;display:block}
+.ico.wa{background:linear-gradient(135deg,#33e27b,#1faa53)}.ico.wa svg{fill:#fff}
+.ico.mail{background:linear-gradient(135deg,#ff8a2a,#ec6fa6)}
+.ico.mail svg{stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+/* Proyecto */
+.projects{grid-column:1/3;grid-row:2;display:flex;flex-direction:column;gap:8px;min-height:0;overflow-y:auto;padding-right:4px;overscroll-behavior:contain}
+.projects::-webkit-scrollbar{width:4px}
+.projects::-webkit-scrollbar-thumb{background:rgba(165,71,43,.3);border-radius:2px}
+.proj-head{display:flex;align-items:center;gap:10px;margin:0;font-size:8.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brown);flex:none}
+.proj-head::after{content:"";flex:1;height:1px;background:currentColor;opacity:.4}
+.proj{flex:none;border-radius:14px;background:rgba(255,255,255,.7);border:1px solid rgba(165,71,43,.24);box-shadow:0 10px 22px -18px rgba(165,71,43,.9);overflow:hidden}
+.proj-summary{display:flex;align-items:center;gap:14px;padding:10px 14px;cursor:pointer}
+.pthumb{width:58px;height:58px;flex:none;border-radius:10px;overflow:hidden;border:2px solid #fffdee;box-shadow:0 8px 16px -8px rgba(165,71,43,.6)}
+.pthumb img{display:block;width:100%;height:100%;object-fit:cover}
+.pinfo{min-width:0;flex:1}
+.ptitle{margin:0 0 3px;font-family:var(--serif);font-weight:500;font-size:11.5px;line-height:1.22;color:#3f1a0e}
+.ptitle i{font-style:italic;color:#e0501b}
+.pdesc{margin:0;font-size:9.5px;font-weight:500;opacity:.78}
+.parrow{width:22px;height:22px;flex:none;border-radius:50%;background:linear-gradient(135deg,#ff8a2a,#ec6fa6);display:grid;place-items:center;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.parrow svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.proj.open .parrow{transform:rotate(180deg)}
+/* despliegue con grid (sin animar max-height → menos layout) */
+.proj-detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1);background:rgba(255,253,238,.6)}
+.proj.open .proj-detail{grid-template-rows:1fr;border-top:1px solid rgba(165,71,43,.2)}
+.detail-inner{min-height:0;overflow:hidden;padding:0 14px;display:flex;flex-direction:column;gap:8px}
+.proj.open .detail-inner{padding:10px 14px 12px}
+.detail-text{margin:0;font-size:10px;font-weight:500;line-height:1.4;opacity:.85}
+.gallery{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:4px;overscroll-behavior-x:contain}
+.gallery::-webkit-scrollbar{height:3px}
+.gallery::-webkit-scrollbar-thumb{background:rgba(165,71,43,.3);border-radius:2px}
+.gitem{flex:none;width:72px;height:72px;padding:0;border-radius:8px;overflow:hidden;border:1.5px solid #fffdee;background:#f6a7e0;box-shadow:0 6px 12px -6px rgba(165,71,43,.5);cursor:zoom-in;scroll-snap-align:start}
+.gitem img{display:block;width:100%;height:100%;object-fit:cover}
+.ptag{align-self:flex-start;font-size:7px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#ff8a2a,#ec6fa6);padding:3px 8px;border-radius:999px}
+.back .arch,.back .bk>*,.back .projects,.back .bh{opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
+.flipper.on .back .arch,.flipper.on .back .bk>*,.flipper.on .back .projects,.flipper.on .back .bh{opacity:1;transform:none}
+.flipper.on .back .arch{transition-delay:.6s}
+.flipper.on .back .bk>:nth-child(1){transition-delay:.7s}
+.flipper.on .back .bk>:nth-child(2){transition-delay:.78s}
+.flipper.on .back .bk>:nth-child(3){transition-delay:.86s}
+.flipper.on .back .projects{transition-delay:1s}
+.flipper.on .back .bh{transition-delay:1.1s}
+
+/* Modo proyectos: al abrir, el proyecto ocupa toda la tarjeta y las fotos se ven en cuadrícula */
+.back.pm{grid-template-rows:0 1fr;row-gap:0;padding-top:14px}
+.back.pm .arch,.back.pm .bk,.back.pm .bh{display:none}
+.back.pm .pthumb{width:44px;height:44px}
+.back.pm .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;overflow:visible;padding-bottom:0}
+.back.pm .gitem{width:100%;height:auto;aspect-ratio:4/3}
+
+/* Lightbox (sin backdrop-filter) */
+.lightbox{position:fixed;inset:0;background:rgba(63,26,14,.88);display:none;place-items:center;z-index:100}
+.lightbox.on{display:grid}
+.lb-img{max-width:min(92vw,900px);max-height:78vh;border-radius:14px;border:4px solid #fffdee;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);background:#fffdee}
+.lb-cap{position:absolute;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));text-align:center;color:#fffdee;font:500 12px var(--sans);padding:0 16px}
+.lb-btn{position:absolute;width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,253,238,.92);color:var(--brown);font:600 18px var(--sans);cursor:pointer;display:grid;place-items:center}
+.lb-close{top:calc(16px + env(safe-area-inset-top,0px));right:16px}
+.lb-prev{left:12px;top:50%;margin-top:-21px}.lb-next{right:12px;top:50%;margin-top:-21px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
+
+/* Cursor mariposa (solo con mouse; en celular no aparece) */
+@media (pointer:fine){html,html *{cursor:none!important}}
+.mcur{position:fixed;left:0;top:0;width:46px;height:31px;margin:-15px 0 0 -23px;z-index:200;pointer-events:none;opacity:0;transition:opacity .3s;will-change:transform}
+.mcur.on{opacity:1}
+.mcur svg{display:block;width:100%;height:100%;overflow:visible;transition:transform .25s}
+.mcur.hov svg{transform:scale(1.4)}
+.mcur .fl{animation:breathe 3.2s infinite ease-in-out}
+.mcur.mv .fl{animation:flapfast .16s infinite alternate ease-in-out}
+
+/* Adaptable: alto dinámico, sin grano en pantallas táctiles */
+@supports(height:100dvh){html,body{height:100dvh}}
+@media (pointer:coarse){body::after{display:none}}
+/* Vertical (celulares): tarjeta de 400x600 */
+.pt .back{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;gap:12px;padding:20px 22px}
+.pt .arch{grid-column:1;grid-row:1;justify-self:center;width:100px;height:122px}
+.pt .arch .ring,.pt .arch .ph{border-radius:50px 50px 12px 12px}
+.pt .bk{grid-column:1;grid-row:2;text-align:center}
+.pt .bk-sub{justify-content:center;margin:6px 0 10px}
+.pt .bk-sub::before{display:none}
+.pt .data{font-size:12.5px;text-align:left}
+.pt .data .lbl{font-size:7.5px}
+.pt .projects{grid-column:1;grid-row:3}
+.pt .ptitle{font-size:12.5px}.pt .pdesc{font-size:10.5px}.pt .detail-text{font-size:11px}
+.pt .back.pm{grid-template-rows:0 0 1fr;gap:0;padding-top:16px}
+.pt .back.pm .gallery{grid-template-columns:repeat(3,1fr)}
+</style>
+</head>
+<body>
+<div class="scaler" id="scaler"><div class="stage" id="stage">
+
+  <div class="bfly"><div class="hop" id="hop"><div class="par" id="par">
+    <svg class="bf" viewBox="0 0 300 200" aria-hidden="true">
+      <defs>
+        <path id="pf" d="M148 80C124 62 70 34 24 30C8 28 4 40 12 54C36 96 100 122 148 112Z"/>
+        <path id="ph" d="M146 114C122 116 96 130 80 146C68 160 74 178 88 184C104 190 108 174 120 170C134 164 142 150 146 138Z"/>
+        <clipPath id="cf"><use href="#pf"/></clipPath><clipPath id="ch"><use href="#ph"/></clipPath>
+        <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".5" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="gb" x1="0" x2="1"><stop offset="0" stop-color="#c0603a"/><stop offset=".5" stop-color="#8a3a22"/><stop offset="1" stop-color="#a5472b"/></linearGradient>
+        <g id="st8"><path d="M0 -10L1.6 -1.6L10 0L1.6 1.6L0 10L-1.6 1.6L-10 0L-1.6 -1.6Z"/><path d="M-5.5 -5.5L-.8 -1.2L5.5 -5.5L1.2 -.8L5.5 5.5L.8 1.2L-5.5 5.5L-1.2 .8Z"/></g>
+        <g id="wl">
+          <use href="#pf" fill="none" stroke="#ff6a13" stroke-width="3" stroke-linejoin="round"/>
+          <use href="#ph" fill="none" stroke="#fbe58a" stroke-width="7" stroke-linejoin="round"/>
+          <use href="#pf" fill="#f8b2e4"/>
+          <g clip-path="url(#cf)">
+            <use href="#pf" fill="none" stroke="#ff6a13" stroke-width="13"/>
+            <g fill="none" stroke-linecap="round">
+              <path d="M34 42C72 54 112 68 146 88" stroke="#fbe58a" stroke-width="4" opacity=".85"/>
+              <path d="M52 56C88 62 120 76 146 96" stroke="#ffd6f2" stroke-width="5" opacity=".9"/>
+              <path d="M70 102C98 96 120 108 148 108" stroke="#fbe58a" stroke-width="3"/>
+              <path d="M44 80C70 88 100 92 120 90" stroke="#fff" stroke-width="2" opacity=".5"/>
+            </g>
+            <path d="M88 84C110 78 134 88 148 102C128 110 102 106 88 84Z" fill="#ff6a13"/>
+            <path d="M102 88C118 86 132 94 140 100C124 102 110 100 102 88Z" fill="#fbe58a"/>
+            <ellipse cx="142" cy="102" rx="16" ry="10" fill="#fbe58a" opacity=".75"/>
+            <g fill="#ff6a13" opacity=".7"><circle cx="30" cy="48" r="1.4"/><circle cx="52" cy="66" r="1.2"/><circle cx="74" cy="76" r="1.3"/></g>
+          </g>
+          <use href="#ph" fill="#ff8a2a"/>
+          <g clip-path="url(#ch)">
+            <use href="#ph" fill="none" stroke="#ff6a13" stroke-width="10"/>
+            <g fill="none" stroke-linecap="round">
+              <path d="M94 132C112 142 100 166 120 180" stroke="#f6a7e0" stroke-width="9"/>
+              <path d="M112 124C126 140 126 156 134 170" stroke="#fbe58a" stroke-width="5"/>
+              <path d="M84 150C96 156 98 172 104 182" stroke="#fbe58a" stroke-width="3"/>
+            </g>
+            <ellipse cx="128" cy="136" rx="13" ry="8" transform="rotate(-35 128 136)" fill="#fbe58a" opacity=".85"/>
+            <ellipse cx="130" cy="136" rx="6" ry="3.5" transform="rotate(-35 130 136)" fill="#ff6a13"/>
+          </g>
+          <use href="#pf" fill="url(#gl)"/><use href="#ph" fill="url(#gl)"/>
+          <use href="#pf" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.3" stroke-linejoin="round"/><use href="#ph" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M30 38C70 48 110 64 140 84" stroke="#fff" stroke-opacity=".8" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </g>
+      </defs>
+      <g class="fl"><use href="#wl"/></g>
+      <g transform="translate(300 0) scale(-1 1)"><g class="fl"><use href="#wl"/></g></g>
+      <g stroke="#a5472b" fill="none" stroke-linecap="round" stroke-width="2"><path d="M148 86C140 66 124 48 98 32"/><path d="M152 86C160 66 176 48 202 32"/></g>
+      <g fill="#a5472b"><ellipse cx="98" cy="32" rx="4" ry="2.2" transform="rotate(30 98 32)"/><ellipse cx="202" cy="32" rx="4" ry="2.2" transform="rotate(-30 202 32)"/></g>
+      <ellipse cx="150" cy="140" rx="4.8" ry="27" fill="url(#gb)"/>
+      <path d="M145.6 128H154.4M145.2 138H154.8M145.4 148H154.6M146.4 158H153.6" stroke="#ff8a2a" stroke-width="2"/>
+      <ellipse cx="150" cy="104" rx="6.5" ry="15" fill="url(#gb)"/><ellipse cx="150" cy="104" rx="3" ry="9" fill="#ff8a2a"/>
+      <ellipse cx="150" cy="87" rx="5.6" ry="6.4" fill="#a5472b"/><ellipse cx="148" cy="85" rx="1.6" ry="2.2" fill="#d98a6a"/>
+      <g fill="#fbe58a" class="tw" style="--d:0s"><use href="#st8" transform="translate(88 18) scale(.85)"/></g>
+      <g fill="#f6a7e0" class="tw" style="--d:.9s"><use href="#st8" transform="translate(252 150) scale(1.1)"/></g>
+      <g fill="#ff6a13" class="tw" style="--d:1.7s"><use href="#st8" transform="translate(150 192) scale(1.3)"/></g>
+    </svg>
+  </div></div></div>
+
+  <div class="tilt" id="tilt">
+    <div class="flipper" id="flipper"><div class="halo"></div>
+      <div class="card" id="card">
+        <div id="scenes"></div>
+        <div class="content">
+          <div class="front-inner">
+            <h1 class="name r1" style="--d:4.05s">Laura Victoria<br><em>Sánchez Herrera</em></h1>
+            <p class="role r1" style="--d:4.3s">Bioingeniería · Investigación</p>
+          </div>
+        </div>
+        <span class="hint front r1" style="--d:4.8s">toca para voltear ↻</span>
+        <div class="glare" id="glare"></div><div class="sheen"></div>
+      </div>
+
+      <!-- ================= CARA TRASERA ================= -->
+      <div class="back">
+        <span class="hint bh">volver ↻</span>
+        <div class="arch">
+          <i class="ring"></i>
+          <div class="ph"><img src="perfil.jpeg" alt="Laura Victoria Sánchez Herrera" width="260" height="312" decoding="async" draggable="false"></div>
+          <svg class="sp tw" viewBox="-12 -12 24 24" style="--d:.4s" aria-hidden="true"><use href="#st8"/></svg>
+        </div>
+
+        <div class="bk">
+          <h2 class="bk-name">Laura Victoria<br><em>Sánchez Herrera</em></h2>
+          <p class="bk-sub">Ingeniería Biomédica · 5.º semestre</p>
+          <ul class="data">
+            <li><span class="lbl">Área</span>Bioingeniería de tejidos</li>
+            <li>
+              <span class="lbl">WhatsApp</span>
+              <a href="https://wa.me/573015774059" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+                <span>+57 301 577 4059</span>
+                <span class="ico wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.1 14.9l-.4-.2-3 .8.8-2.9-.2-.4A8 8 0 0 1 12 4zm-3.3 4c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.3s1 2.6 1.2 2.8c.2.2 2 3.1 5 4.3 2.5 1 3 .8 3.5.7.5 0 1.7-.7 2-1.4.2-.7.2-1.2.1-1.3 0-.1-.3-.2-.7-.4l-1.8-.9c-.3-.1-.5-.2-.7.1l-.9 1.1c-.2.2-.4.3-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5v-.5l-.9-2c-.2-.5-.4-.4-.6-.4z"/></svg></span>
+              </a>
+            </li>
+            <li>
+              <span class="lbl">Correo</span>
+              <a href="mailto:laura.sanchez@correo.co" aria-label="Enviar correo">
+                <span>laura.sanchez@correo.co</span>
+                <span class="ico mail"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="projects">
+          <p class="proj-head">Proyecto · toca para ver</p>
+          <div class="proj" id="proj1">
+            <div class="proj-summary" role="button" tabindex="0" aria-expanded="false">
+              <div class="pthumb"><img src="electrospinning-t.jpeg" alt="" width="58" height="58" loading="lazy" decoding="async"></div>
+              <div class="pinfo">
+                <h3 class="ptitle">Matriz híbrida de kefiran y fibroína de seda de <i>Nephila clavipes</i></h3>
+                <p class="pdesc">Regeneración tisular epitelial y neural.</p>
+              </div>
+              <span class="parrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+            </div>
+            <div class="proj-detail">
+              <div class="detail-inner">
+                <p class="detail-text">Investigación en curso sobre una matriz bioactiva híbrida que combina kefiran y fibroína de seda para favorecer la regeneración de tejidos epitelial y neural.</p>
+                <div class="gallery" id="gallery"></div>
+                <span class="ptag">En curso</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galería del proyecto">
+  <button class="lb-btn lb-close" type="button" aria-label="Cerrar">✕</button>
+  <button class="lb-btn lb-prev" type="button" aria-label="Anterior">‹</button>
+  <img class="lb-img" id="lbImg" alt="" decoding="async">
+  <button class="lb-btn lb-next" type="button" aria-label="Siguiente">›</button>
+  <p class="lb-cap" id="lbCap"></p>
+</div>
+
+<div class="mcur" id="mcur" aria-hidden="true"><svg viewBox="0 0 300 200"><g class="fl"><use href="#wl"/></g><g transform="translate(300 0) scale(-1 1)"><g class="fl"><use href="#wl"/></g></g><g stroke="#a5472b" fill="none" stroke-linecap="round" stroke-width="3"><path d="M148 86C140 66 124 48 98 32"/><path d="M152 86C160 66 176 48 202 32"/></g><ellipse cx="150" cy="140" rx="4.8" ry="27" fill="url(#gb)"/><ellipse cx="150" cy="104" rx="6.5" ry="15" fill="url(#gb)"/><ellipse cx="150" cy="87" rx="5.6" ry="6.4" fill="#a5472b"/></svg></div>
+
+<script>
+var sc=document.getElementById('scaler'),tilt=document.getElementById('tilt'),card=document.getElementById('card'),gl=document.getElementById('glare'),par=document.getElementById('par'),st=document.getElementById('stage');
+var fine=matchMedia('(pointer:fine)').matches,reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var MAXK=1; /* tamaño máximo en pantallas grandes: 1 = normal, 1.2 = 20 % más grande, 0.9 = más pequeño */
+function fit(){var vw=Math.min(innerWidth,document.documentElement.clientWidth||innerWidth),vh=innerHeight,pt=vw/vh<.9&&vw<900,W=pt?400:600,H=pt?600:400;
+  document.body.classList.toggle('pt',pt);sc.style.width=W+'px';sc.style.height=H+'px';
+  sc.style.setProperty('--k',Math.min(MAXK,(vw-24)/W,(vh-32)/H))}
+fit();addEventListener('resize',fit);
+
+/* Polvo: pocas partículas */
+for(var i=0;i<(fine?7:4);i++){var d=document.createElement('i'),s=3+Math.random()*5;d.className='dust';
+  d.style.cssText='left:'+(Math.random()*130-15)+'%;top:'+(Math.random()*120-10)+'%;width:'+s+'px;height:'+s+'px;--t:'+(5+Math.random()*5)+'s;--d:'+(3+Math.random()*5)+'s;--x:'+(Math.random()*40-20)+'px';st.appendChild(d)}
+
+/* Inclinación 3D: transform directo (sin variables CSS heredadas) y bucle solo cuando hace falta */
+(function(){
+  var T={rx:0,ry:0,px:0,py:0},C={rx:0,ry:0,px:0,py:0},last=-9999,run=false,pend=null;
+  function frame(now){
+    if(document.hidden){run=false;return}
+    var pm=tilt.classList.contains('pm'),idle=pm||now-last>2500;
+    if(idle){
+      if(fine&&!reduce&&!pm){var t=now/1000;T.ry=Math.sin(t*.6)*5;T.rx=Math.cos(t*.45)*3.5;T.px=-T.ry*1.8;T.py=-T.rx*1.8}
+      else{T.rx=T.ry=T.px=T.py=0}
+      gl.classList.remove('on')}
+    var moving=false;
+    for(var k in C){var dl=T[k]-C[k];C[k]+=dl*.08;if(Math.abs(dl)>.02)moving=true}
+    tilt.style.transform='rotateX('+C.rx.toFixed(2)+'deg) rotateY('+C.ry.toFixed(2)+'deg)';
+    par.style.transform='translate3d('+C.px.toFixed(1)+'px,'+C.py.toFixed(1)+'px,0)';
+    if(pend){gl.style.setProperty('--gx',pend[0]);gl.style.setProperty('--gy',pend[1]);pend=null}
+    if(moving||(idle&&fine&&!reduce&&!pm))requestAnimationFrame(frame);else run=false}
+  function kick(){if(!run){run=true;requestAnimationFrame(frame)}}
+  if(!reduce)addEventListener('pointermove',function(e){
+    if(e.pointerType==='touch')return;
+    var r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    var cx=Math.max(-.7,Math.min(1.7,x)),cy=Math.max(-.7,Math.min(1.7,y));
+    T.ry=(cx-.5)*14;T.rx=(.5-cy)*12;T.px=(.5-cx)*26;T.py=(.5-cy)*18;last=performance.now();
+    pend=[x*100+'%',y*100+'%'];gl.classList.toggle('on',x>0&&x<1&&y>0&&y<1);kick()},{passive:true});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)kick()});
+  kick();
+})();
+
+/* Nombre letra por letra */
+(function(){var n=document.querySelector('.name');n.setAttribute('aria-label','Laura Victoria Sánchez Herrera');var c={n:0};
+function sp(el){[].slice.call(el.childNodes).forEach(function(m){if(m.nodeType===3){var f=document.createDocumentFragment();m.textContent.split('').forEach(function(ch){var s=document.createElement('span');if(ch===' '){s.className='sp1'}else{s.className='ch';s.setAttribute('aria-hidden','true');s.style.setProperty('--i',c.n++);s.textContent=ch}f.appendChild(s)});el.replaceChild(f,m)}else if(m.nodeType===1)sp(m)})}
+sp(n)})();
+
+/* Escenas del frente: degradados CSS (antes: 9 SVG con feGaussianBlur a pantalla completa) */
+(function(){
+var O=[255,122,42],P=[246,167,224],Y=[251,229,138],R=[236,111,166],W=[255,255,255];
+function b(x,y,w,h,c,a){return 'radial-gradient(ellipse '+w+'% '+h+'% at '+x+'% '+y+'%,rgba('+c+','+a+'),transparent)'}
+var S=[
+['#fff3d2','#f9b5df',[b(86,23,24,26,P,.8),b(14,88,22,16,O,.45),b(28,18,14,18,Y,.8)]],
+['#fbe58a','#f6a7e0',[b(11,80,24,20,O,.55),b(90,19,22,18,R,.5),b(88,85,20,16,W,.6)]],
+['#f9c4ec','#fff6d8',[b(15,60,26,36,W,.75),b(88,45,22,36,Y,.65),b(50,100,60,26,O,.55)]],
+['#ffd9b8','#f4a0d0',[b(14,31,22,32,W,.6),b(23,50,24,26,P,.55),b(88,73,22,32,W,.55)]],
+['#ff9a4a','#f6a7e0',[b(50,70,55,26,Y,.75),b(85,23,15,26,W,.85),b(25,90,48,14,W,.55)]],
+['#fff6d8','#fbe58a',[b(88,45,12,26,R,.8),b(96,66,9,16,P,.9),b(80,92,20,10,O,.6),b(15,25,12,18,W,.65)]],
+['#f6a7e0','#ff9a4a',[b(14,54,22,26,W,.55),b(91,23,18,18,Y,.75)]],
+['#ec6fa6','#fbe58a',[b(86,42,16,34,W,.35),b(14,85,24,16,O,.55)]],
+['#fbe58a','#ff8a3a',[b(86,85,32,26,O,.75),b(14,23,20,22,P,.75)]]
+];
+var Wd=document.getElementById('scenes'),i=0,t;
+S.forEach(function(s){var d=document.createElement('div');d.className='sc';
+  d.style.background=s[2].join(',')+',linear-gradient(135deg,'+s[0]+','+s[1]+')';Wd.appendChild(d)});
+function show(n){i=(n+S.length)%S.length;[].forEach.call(Wd.children,function(e,k){e.classList.toggle('on',k===i)})}
+function loop(){clearInterval(t);if(!reduce)t=setInterval(function(){if(!document.hidden&&!document.body.classList.contains('flipped'))show(i+1)},2600)}
+show(0);setTimeout(function(){show(1);loop()},4300);
+})();
+
+/* Mariposa + voltear */
+(function(){
+var fp=document.getElementById('flipper');
+var bf=document.querySelector('.bf'),hop=document.getElementById('hop'),busy=0;
+function bz(a,b,c,d,u){var v=1-u;return v*v*v*a+3*v*v*u*b+3*v*u*u*c+u*u*u*d}
+function bd(a,b,c,d,u){var v=1-u;return 3*v*v*(b-a)+6*v*u*(c-b)+3*u*u*(d-c)}
+function ES(t){return t*t*(3-2*t)}
+function EI(t){return 1-Math.pow(1-t,2.4)}
+function track(P,s0,s1,r0,r1,ease,amp,cyc){var f=[],n=56;
+  for(var i=0;i<=n;i++){var t=i/n,u=ease(t),x=bz(P[0],P[2],P[4],P[6],u),y=bz(P[1],P[3],P[5],P[7],u),dx=bd(P[0],P[2],P[4],P[6],u),dy=bd(P[1],P[3],P[5],P[7],u),m=Math.hypot(dx,dy)||1,sn=Math.sin(Math.PI*t);
+    y+=Math.sin(t*Math.PI*2*cyc)*amp*sn;
+    var r=r0+(r1-r0)*u+dx/m*24*sn,s=(s0+(s1-s0)*u)*(1+.07*sn);
+    f.push({offset:t,transform:'translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) rotate('+r.toFixed(1)+'deg) scale('+s.toFixed(3)+')'})}
+  return f}
+var COL=['#fff','#ffd36b','#f6a7e0','#ff9a4a'];
+function spark(x,y,sz,dx,dy,dur){var el=document.createElement('i'),c=COL[Math.random()*COL.length|0];el.className='trail';
+  el.style.cssText='left:'+x+'px;top:'+y+'px;width:'+sz+'px;height:'+sz+'px;margin:'+(-sz/2)+'px 0 0 '+(-sz/2)+'px;background:radial-gradient(circle,'+c+' 25%,transparent 72%)';
+  st.appendChild(el);el.animate([{transform:'translate(0,0) scale(1)',opacity:.95},{transform:'translate('+dx+'px,'+dy+'px) scale(.2)',opacity:0}],{duration:dur,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=function(){el.remove()}}
+function ctr(){var r=bf.getBoundingClientRect(),s=st.getBoundingClientRect(),k=s.width/st.offsetWidth||1;return[(r.left+r.width/2-s.left)/k,(r.top+r.height*.55-s.top)/k,k]}
+function burst(){var c=ctr();for(var n=0;n<8;n++){var an=n/8*6.283+Math.random()*.4,d=26+Math.random()*34;spark(c[0],c[1],5+Math.random()*6,Math.cos(an)*d,Math.sin(an)*d,900+Math.random()*400)}}
+function go(frames,dur,land,done){
+  bf.classList.remove('settled','landing');bf.classList.add('flying');
+  var a=hop.animate(frames,{duration:dur,easing:'linear',fill:'forwards'});
+  var tr=setInterval(function(){var c=ctr();spark(c[0]+Math.random()*16-8,c[1]+Math.random()*16-8,3+Math.random()*5,Math.random()*24-12,16+Math.random()*22,800)},100);
+  setTimeout(function(){bf.classList.remove('flying');bf.classList.add('landing')},dur-land);
+  a.onfinish=function(){clearInterval(tr);bf.classList.remove('landing');bf.classList.add('settled');burst();if(done)done()}}
+hop.style.opacity=1;
+go(track([-Math.max(innerWidth*.7,660),430,-300,-250,-110,200,0,0],.3,1,24,0,EI,10,5),2900,900,function(){bf.classList.add('behind')});
+function fly(out){
+  if(out){bf.classList.remove('behind');
+    go(track([0,0,-70,-170,260,-190,200,-52],1,.34,0,10,ES,8,3),1600,800,function(){bf.classList.add('behind')})}
+  else{bf.classList.add('behind');
+    go(track([200,-52,250,-120,60,-170,0,0],.34,1,10,0,ES,8,3),1600,800,function(){bf.classList.add('behind')})}}
+function flip(){if(busy)return;busy=1;setTimeout(function(){busy=0},1700);
+  fp.classList.remove('go');void fp.offsetWidth;fp.classList.add('go');fly(fp.classList.toggle('on'));document.body.classList.toggle('flipped',fp.classList.contains('on'))}
+fp.addEventListener('click',function(e){
+  if(e.target.closest('a')||e.target.closest('.proj'))return;
+  flip();
+});
+fp.setAttribute('role','button');fp.setAttribute('tabindex','0');
+fp.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});
+})();
+
+
+/* Proyecto desplegable */
+(function(){
+  var p=document.getElementById('proj1'),sum=p.querySelector('.proj-summary'),back=document.querySelector('.back'),
+      list=p.parentNode,head=list.querySelector('.proj-head'),tl=document.getElementById('tilt');
+  function toggle(e){e.stopPropagation();var o=p.classList.toggle('open');
+    back.classList.toggle('pm',o);tl.classList.toggle('pm',o);sum.setAttribute('aria-expanded',o);
+    head.textContent=o?'Toca una foto para ampliarla':'Proyecto · toca para ver';
+    back.scrollTop=0;list.scrollTop=0}
+  sum.addEventListener('click',toggle);
+  sum.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(e)}});
+  p.addEventListener('click',function(e){e.stopPropagation()});
+})();
+
+/* Galería: miniaturas ligeras; la imagen grande se carga solo al ampliar */
+(function(){
+  var IM=[["reactivos", "Reactivos en cajas de Petri: PVAL, colágeno, CA y ácido"], ["maceracion", "Maceración de la muestra en mortero"], ["agitacion", "Agitación con calentamiento a 30 °C"], ["pipeteo1", "Preparación de soluciones con pipeta"], ["pipeteo2", "Pipeteo en el laboratorio"], ["laboratorio", "Trabajo en el laboratorio"], ["microscopio", "Observación al microscopio"], ["electrospinning", "Equipo de electrospinning"]],lb=document.getElementById('lightbox'),img=document.getElementById('lbImg'),cap=document.getElementById('lbCap'),cur=0;
+  function show(n){cur=(n+IM.length)%IM.length;img.src=''+IM[cur][0]+'.jpeg';img.alt=IM[cur][1];cap.textContent=IM[cur][1]+'  ·  '+(cur+1)+'/'+IM.length;
+    var nx=IM[(cur+1)%IM.length][0];(new Image()).src=''+nx+'.jpeg'}
+  function close(){lb.classList.remove('on');img.removeAttribute('src')}
+  var gal=document.getElementById('gallery');
+  IM.forEach(function(m,k){var b=document.createElement('button');b.className='gitem';b.type='button';b.dataset.i=k;b.setAttribute('aria-label','Ampliar: '+m[1]);
+    var im=new Image();im.alt=m[1];im.loading='lazy';im.decoding='async';im.draggable=false;
+    im.onerror=function(){im.onerror=null;im.src=''+m[0]+'.jpeg'};  /* si no hay miniatura -t, usa la foto normal */
+    im.src=''+m[0]+'-t.jpeg';b.appendChild(im);gal.appendChild(b)});
+  gal.addEventListener('click',function(e){
+    var g=e.target.closest('.gitem');if(!g)return;e.stopPropagation();show(+g.dataset.i);lb.classList.add('on')});
+  lb.addEventListener('click',function(e){
+    if(e.target.closest('.lb-prev'))show(cur-1);else if(e.target.closest('.lb-next'))show(cur+1);else close()});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape')close();else if(e.key==='ArrowLeft')show(cur-1);else if(e.key==='ArrowRight')show(cur+1)});
+})();
+
+/* Cursor mariposa */
+(function(){
+  if(!matchMedia('(pointer:fine)').matches)return;
+  var c=document.getElementById('mcur'),x=0,y=0,tx=0,ty=0,rot=0,run=false,mvT;
+  function loop(){var dx=tx-x,dy=ty-y;x+=dx*.28;y+=dy*.28;
+    rot+=(Math.max(-35,Math.min(35,dx*1.2))-rot)*.15;
+    c.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0) rotate('+rot.toFixed(1)+'deg)';
+    if(Math.abs(dx)>.1||Math.abs(dy)>.1||Math.abs(rot)>.2)requestAnimationFrame(loop);else run=false}
+  addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;
+    tx=e.clientX;ty=e.clientY;
+    if(!c.classList.contains('on')){x=tx;y=ty;c.classList.add('on')}
+    c.classList.add('mv');clearTimeout(mvT);mvT=setTimeout(function(){c.classList.remove('mv')},180);
+    c.classList.toggle('hov',!!e.target.closest('a,button,.proj-summary,.gitem'));
+    if(!run){run=true;requestAnimationFrame(loop)}},{passive:true});
+  document.documentElement.addEventListener('mouseleave',function(){c.classList.remove('on')});
+})();
+</script>
+</body>
+</html>
